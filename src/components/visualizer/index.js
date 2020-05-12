@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Column from '../column';
-
 import './Visualizer.css';
 
 class Visualizer extends React.Component {
@@ -12,14 +10,21 @@ class Visualizer extends React.Component {
             numbers: fillArray(),
             name: 'Bubble Sort'
         }
+        doBubbleSort = doBubbleSort.bind(this);
+    }
+
+    componentDidMount() {
+        doBubbleSort();
     }
 
     render() {
         return(
             <div className="visualizer">
                 <div className="col-container">
-                    {this.state.numbers.map(item => (
-                        <Column value={item.value} color={item.color} />
+                    {this.state.numbers.map((item, idx) => (
+                        <div key={idx} className="column">
+                            <div className="col-itself" style={{backgroundColor: item.color, height: item.value * 3}}></div>
+                        </div>
                     ))}
                 </div>
             </div>
@@ -46,6 +51,43 @@ function fillArray() {
         numbersArray[rand].value = temp;
     }
     return numbersArray;
+}
+
+function doBubbleSort() {
+    let animationsArray = document.getElementsByClassName('col-itself');
+    let arr = this.state.numbers;
+    console.log(arr);
+    var len = arr.length;
+
+    // animationsArray[j].style.backgroundColor = '#FF5722';
+    // animationsArray[j].style.height = arr[j].value * 3 + 'px';
+
+    // animationsArray[j+1].style.backgroundColor = '#FF5722';
+    // animationsArray[j+1].style.height = arr[j+1].value * 3 + 'px';
+
+    for (let i = 0; i < len ; i++) {
+        for(let j = 0 ; j < len - i - 1; j++){
+            if (arr[j].value > arr[j + 1].value) {
+                var temp = arr[j].value;
+                arr[j].value = arr[j+1].value;
+                arr[j+1].value = temp;
+
+                const barOneStyle = animationsArray[j].style;
+                const barTwoStyle = animationsArray[j+1].style;
+                const barOneHeight = arr[j].value * 3 + 'px';
+                const barTwoHeight = arr[j+1].value * 3 + 'px';
+                const color = '#FF5722';
+
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = color;
+                    barOneStyle.height = barOneHeight;
+                    barTwoStyle.backgroundColor = color;
+                    barTwoStyle.height = barTwoHeight;
+                }, 1000);
+            }
+        }
+    }
+    return arr;
 }
 
 export default Visualizer;
