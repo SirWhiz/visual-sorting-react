@@ -59,12 +59,6 @@ function doBubbleSort() {
     console.log(arr);
     var len = arr.length;
 
-    // animationsArray[j].style.backgroundColor = '#FF5722';
-    // animationsArray[j].style.height = arr[j].value * 3 + 'px';
-
-    // animationsArray[j+1].style.backgroundColor = '#FF5722';
-    // animationsArray[j+1].style.height = arr[j+1].value * 3 + 'px';
-
     for (let i = 0; i < len ; i++) {
         for(let j = 0 ; j < len - i - 1; j++){
             if (arr[j].value > arr[j + 1].value) {
