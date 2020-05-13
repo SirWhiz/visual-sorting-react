@@ -54,15 +54,16 @@ function fillArray() {
 }
 
 function doBubbleSort() {
-    let animationsArray = document.getElementsByClassName('col-itself');
+    const animationsArray = document.getElementsByClassName('col-itself');
     let arr = this.state.numbers;
     console.log(arr);
-    var len = arr.length;
+    let len = arr.length;
+    let timeout = 150;
 
     for (let i = 0; i < len ; i++) {
         for(let j = 0 ; j < len - i - 1; j++){
             if (arr[j].value > arr[j + 1].value) {
-                var temp = arr[j].value;
+                let temp = arr[j].value;
                 arr[j].value = arr[j+1].value;
                 arr[j+1].value = temp;
 
@@ -74,10 +75,17 @@ function doBubbleSort() {
 
                 setTimeout(() => {
                     barOneStyle.backgroundColor = color;
-                    barOneStyle.height = barOneHeight;
                     barTwoStyle.backgroundColor = color;
+                    barOneStyle.height = barOneHeight;
                     barTwoStyle.height = barTwoHeight;
-                }, 1000);
+                }, timeout);
+
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = '#00BCD4';
+                    barTwoStyle.backgroundColor = '#00BCD4';
+                }, timeout + 100);
+
+                timeout = timeout + 100;
             }
         }
     }
