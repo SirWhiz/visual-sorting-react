@@ -11,21 +11,33 @@ class BubbleSort extends React.Component {
             name: 'Bubble Sort'
         }
         doBubbleSort = doBubbleSort.bind(this);
+        this.doSort = this.doSort.bind(this);
     }
 
-    componentDidMount() {
+    componentWillUnmount() {
+        clearTimeouts();
+    }
+
+    doSort() {
+        this.setState({ numbers: fillArray() });
+        clearTimeouts();
         doBubbleSort();
     }
 
     render() {
         return(
-            <div className="visualizer">
-                <div className="col-container">
-                    {this.state.numbers.map((item, idx) => (
-                        <div key={idx} className="column">
-                            <div className="col-itself" style={{backgroundColor: item.color, height: item.value * 3}}></div>
-                        </div>
-                    ))}
+            <div className="visualizer-container">
+                <div className="button-container">
+                    <button className="start-button" onClick={this.doSort}>Start Sorting</button>
+                </div>
+                <div className="visualizer">
+                    <div className="col-container">
+                        {this.state.numbers.map((item, idx) => (
+                            <div key={idx} className="column">
+                                <div className="col-itself" style={{backgroundColor: item.color, height: item.value * 3}}></div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         );
@@ -53,10 +65,22 @@ function fillArray() {
     return numbersArray;
 }
 
+function clearTimeouts() {
+    var id = window.setTimeout(function() {}, 0);
+
+    while (id--) {
+        window.clearTimeout(id); // will do nothing if no timeout with id is present
+    }
+
+    const animationsArray = document.getElementsByClassName('col-itself');
+    for (let i = 0; i < animationsArray.length; i++) {
+        animationsArray[i].style.backgroundColor = '#00BCD4';
+    }
+}
+
 function doBubbleSort() {
     const animationsArray = document.getElementsByClassName('col-itself');
     let arr = this.state.numbers;
-    console.log(arr);
     let len = arr.length;
     let timeout = 150;
 

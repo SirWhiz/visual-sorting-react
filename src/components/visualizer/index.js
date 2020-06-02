@@ -34,10 +34,9 @@ class Visualizer extends React.Component {
                     <div>
                         <select className="dropdow-select" value={this.state.selected} onChange={this.change}>
                             <option value="0">Select an Algorithm</option>
-                            <option value="1">Bubble Sort</option>
+                            <option value={this.BUBBLE_SORT}>Bubble Sort</option>
                             <option value="2">Another cool Algorithm</option>
                         </select>
-                        <button className="start-button">Start Sorting</button>
                     </div>
                 </div>
                 {algorithm}
