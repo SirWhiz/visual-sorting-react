@@ -10,3 +10,8 @@
     align-items: center;
     margin-top: 2em;
 }
+
+.col-container {
+    display: flex;
+    align-items: baseline;
+}
