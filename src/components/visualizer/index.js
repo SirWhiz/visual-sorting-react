@@ -1,12 +1,14 @@
 import React from 'react';
 
 import BubbleSort from '../bubble-sort';
+import MergeSort from '../merge-sort';
 
 import './Visualizer.css';
 
 class Visualizer extends React.Component {
 
     BUBBLE_SORT = 1;
+    MERGE_SORT = 2;
 
     constructor() {
         super();
@@ -25,6 +27,8 @@ class Visualizer extends React.Component {
         let algorithm = "";
         if(this.state.selected === this.BUBBLE_SORT) {
             algorithm = <BubbleSort/>
+        }else if(this.state.selected === this.MERGE_SORT) {
+            algorithm = <MergeSort/>
         }
 
         return(
@@ -35,7 +39,7 @@ class Visualizer extends React.Component {
                         <select className="dropdow-select" value={this.state.selected} onChange={this.change}>
                             <option value="0">Select an Algorithm</option>
                             <option value={this.BUBBLE_SORT}>Bubble Sort</option>
-                            <option value="2">Another cool Algorithm</option>
+                            <option value={this.MERGE_SORT}>Merge Sort</option>
                         </select>
                     </div>
                 </div>
