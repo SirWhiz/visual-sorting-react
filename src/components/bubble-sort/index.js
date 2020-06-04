@@ -19,9 +19,13 @@ class BubbleSort extends React.Component {
     }
 
     doSort() {
-        this.setState({ numbers: fillArray() });
         clearTimeouts();
-        doBubbleSort();
+        let randomArray = fillArray();
+        this.setState({
+            numbers: randomArray
+        }, () => {
+            doBubbleSort(randomArray);
+        });
     }
 
     render() {
@@ -78,9 +82,9 @@ function clearTimeouts() {
     }
 }
 
-function doBubbleSort() {
+function doBubbleSort(randomArray) {
     const animationsArray = document.getElementsByClassName('col-itself');
-    let arr = this.state.numbers;
+    let arr = randomArray;
     let len = arr.length;
     let timeout = 150;
 
