@@ -1,14 +1,14 @@
 import React from 'react';
 
 import BubbleSort from '../bubble-sort';
+import SelectionSort from '../selection-sort';
 import MergeSort from '../merge-sort';
+
+import { BUBBLE_SORT, SELECTION_SORT, MERGE_SORT } from './constants';
 
 import './Visualizer.css';
 
 class Visualizer extends React.Component {
-
-    BUBBLE_SORT = 1;
-    MERGE_SORT = 2;
 
     constructor() {
         super();
@@ -24,12 +24,7 @@ class Visualizer extends React.Component {
 
     render() {
 
-        let algorithm = "";
-        if(this.state.selected === this.BUBBLE_SORT) {
-            algorithm = <BubbleSort/>
-        }else if(this.state.selected === this.MERGE_SORT) {
-            algorithm = <MergeSort/>
-        }
+        let algorithm = getSelectedAlgorithm(this.state.selected);
 
         return(
             <div>
@@ -38,8 +33,9 @@ class Visualizer extends React.Component {
                     <div>
                         <select className="dropdow-select" value={this.state.selected} onChange={this.change}>
                             <option value="0">Select an Algorithm</option>
-                            <option value={this.BUBBLE_SORT}>Bubble Sort</option>
-                            <option value={this.MERGE_SORT}>Merge Sort</option>
+                            <option value={BUBBLE_SORT}>Bubble Sort</option>
+                            <option value={SELECTION_SORT}>Selection Sort</option>
+                            <option value={MERGE_SORT}>Merge Sort</option>
                         </select>
                     </div>
                 </div>
@@ -48,6 +44,27 @@ class Visualizer extends React.Component {
         )
     }
 
+}
+
+function getSelectedAlgorithm(selection) {
+    var algorithm = "";
+    switch(selection) {
+        case 0:
+            algorithm = "";
+            break;
+        case BUBBLE_SORT:
+            algorithm = <BubbleSort/>
+            break;
+        case MERGE_SORT:
+            algorithm = <MergeSort/>
+            break;
+        case SELECTION_SORT:
+            algorithm = <SelectionSort/>
+            break;
+        default:
+            algorithm = ""
+    }
+    return algorithm;
 }
 
 export default Visualizer;

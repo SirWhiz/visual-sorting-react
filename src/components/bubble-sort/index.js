@@ -2,6 +2,9 @@ import React from 'react';
 
 import './BubbleSort.css';
 
+import { BLUE, RED } from '../visualizer/constants';
+import { clearTimeouts, fillArray } from '../visualizer/helperFunctions';
+
 class BubbleSort extends React.Component {
 
     constructor() {
@@ -49,39 +52,6 @@ class BubbleSort extends React.Component {
 
 }
 
-function fillArray() {
-    let numbersArray = [];
-    //Populate array with numbers from 0 to 50
-    for(let i = 0; i < 50; i++) {
-        var column = {
-            value: i + 1,
-            color: '#00BCD4'
-        }
-        numbersArray[i] = column;
-    }
-    //Shuffle the array
-    for(let i = 0; i < 50; i++) {
-        let temp = numbersArray[i].value;
-        let rand = Math.floor(Math.random() * 50);
-        numbersArray[i].value = numbersArray[rand].value;
-        numbersArray[rand].value = temp;
-    }
-    return numbersArray;
-}
-
-function clearTimeouts() {
-    var id = window.setTimeout(function() {}, 0);
-
-    while (id--) {
-        window.clearTimeout(id); // will do nothing if no timeout with id is present
-    }
-
-    const animationsArray = document.getElementsByClassName('col-itself');
-    for (let i = 0; i < animationsArray.length; i++) {
-        animationsArray[i].style.backgroundColor = '#00BCD4';
-    }
-}
-
 function doBubbleSort(randomArray) {
     const animationsArray = document.getElementsByClassName('col-itself');
     let arr = randomArray;
@@ -99,7 +69,7 @@ function doBubbleSort(randomArray) {
                 const barTwoStyle = animationsArray[j+1].style;
                 const barOneHeight = arr[j].value * 3 + 'px';
                 const barTwoHeight = arr[j+1].value * 3 + 'px';
-                const color = '#FF5722';
+                const color = RED;
 
                 setTimeout(() => {
                     barOneStyle.backgroundColor = color;
@@ -109,11 +79,11 @@ function doBubbleSort(randomArray) {
                 }, timeout);
 
                 setTimeout(() => {
-                    barOneStyle.backgroundColor = '#00BCD4';
-                    barTwoStyle.backgroundColor = '#00BCD4';
-                }, timeout + 100);
+                    barOneStyle.backgroundColor = BLUE;
+                    barTwoStyle.backgroundColor = BLUE;
+                }, timeout + 50);
 
-                timeout = timeout + 100;
+                timeout = timeout + 50;
             }
         }
     }
