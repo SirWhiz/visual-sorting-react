@@ -81,7 +81,78 @@ function clearTimeouts() {
 }
 
 function doMergeSort(randomArray) {
+    const animationsArray = document.getElementsByClassName('col-itself');
 
+    // No need to sort the array if the array only has one element or empty
+    if (randomArray.length <= 1) {
+        return randomArray;
+    }
+    
+    // In order to divide the array in half, we need to figure out the middle
+    const middle = Math.floor(randomArray.length / 2);
+
+    // This is where we will be dividing the array into left and right
+    const left = randomArray.slice(0, middle);
+    const right = randomArray.slice(middle);
+    highlightCurrent(animationsArray, left, right);
+
+    // Using recursion to combine the left and right
+    return merge(
+        doMergeSort(left), doMergeSort(right)
+    );
+}
+
+// Merge the two arrays: left and right
+function merge (left, right) {
+    let resultArray = [], leftIndex = 0, rightIndex = 0;
+  
+    // We will concatenate values into the resultArray in order
+    while (leftIndex < left.length && rightIndex < right.length) {
+      if (left[leftIndex] < right[rightIndex]) {
+        resultArray.push(left[leftIndex]);
+        leftIndex++; // move left array cursor
+      } else {
+        resultArray.push(right[rightIndex]);
+        rightIndex++; // move right array cursor
+      }
+    }
+  
+    // We need to concat here because there will be one element remaining
+    // from either left OR the right
+    return resultArray
+            .concat(left.slice(leftIndex))
+            .concat(right.slice(rightIndex));
+}
+
+function highlightCurrent(animationsArray, left, right) {
+
+    let timeout = 150;
+
+    setTimeout(() => {
+        for(let i=0; i<left.length; i++) {
+            var col = findByHeight(animationsArray, left[i].value);
+            if(col != null) {
+                console.log(col);
+                col.style.backgroundColor = '#FF5722';
+            }
+        }
+        for(let i=0; i<right.length; i++) {
+            var col = findByHeight(animationsArray, right[i].value);
+            if(col != null) {
+                col.style.backgroundColor = '#00796B';
+            }
+        }
+        timeout = timeout + 100;
+    }, timeout);
+
+}
+
+function findByHeight(animationsArray, value) {
+    for(let i=0; i<animationsArray.length; i++) {
+        if(animationsArray[i].style.height.includes(value)) {
+            return animationsArray[i];
+        }
+    }
 }
 
 export default MergeSort;
